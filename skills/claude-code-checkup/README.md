@@ -29,6 +29,23 @@ confirm.
 npx skills add dvkzone-ai/GitSkills --skill claude-code-checkup
 ```
 
+The installer asks a few questions:
+
+1. **Which agents do you want to install to?** Type `claude` in the search box, press Space on
+   **Claude Code**, then Enter. The "Universal" agents are always included and only add a copy
+   in `.agents/skills/`.
+2. **Installation scope.** **Global** installs for your user and works in every project.
+   **Project** installs in the current folder only. If you already have this skill globally,
+   Global replaces that copy.
+3. **Installation method.** **Copy to all agents** writes a real copy for each agent; the
+   symlink option keeps one copy and links the others to it. Either works.
+4. **Proceed with installation?** Yes.
+
+At the end it may offer to install the **find-skills** skill. That one is unrelated and installs
+globally; answer No if you do not want it.
+
+Then start a new Claude Code session and type `/claude-code-checkup`.
+
 Or copy this folder into `~/.claude/skills/`.
 
 Requires Python 3.9 or later. [PyYAML](https://pypi.org/project/PyYAML/) is optional and makes
