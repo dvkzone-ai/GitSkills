@@ -412,13 +412,14 @@ def collect_permissions(settings):
         for lst in ("allow", "deny", "ask"):
             for r in perms.get(lst) or []:
                 rules.append({"scope": s["scope"], "file": s["path"], "list": lst, "rule": r})
-    seen = Counter((r["list"], r["rule"]) for r in rules)
+    seen = set()  # the first occurrence of a rule is kept; later copies are duplicates
     broad = [(r, rule_prefix(r["rule"])) for r in rules]
     broad = [(r, p) for r, p in broad if p]
     for r in rules:
         flags = []
-        if seen[(r["list"], r["rule"])] > 1:
+        if (r["list"], r["rule"]) in seen:
             flags.append("duplicate")
+        seen.add((r["list"], r["rule"]))
         m = re.match(r"^(\w+)\((.*)\)$", r["rule"])
         if m:
             tool, inner = m.groups()
