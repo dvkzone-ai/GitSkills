@@ -48,6 +48,26 @@ Then start a new Claude Code session and type `/<skill-name>`.
 Or copy the skill's folder from `skills/` into `~/.claude/skills/` (personal, every project) or
 `.claude/skills/` (one project).
 
+## Uninstall
+
+Remove a skill installed globally:
+
+```bash
+npx skills remove <skill-name> -g
+```
+
+For a skill installed in one project, run the same command from that project's folder, without
+`-g`. Use `npx skills ls -g` (or `npx skills ls` in the project) to see what is installed.
+
+On Windows the command may end with `Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)`
+after "Done!". It is a known Node.js glitch on exit: the removal has already completed.
+
+With a project install, the installer leaves behind empty `.agents/skills/` and
+`.claude/skills/` folders and a `skills-lock.json` file. Delete them if you no longer need them.
+
+If you installed the skill by copying its folder, delete that folder from `~/.claude/skills/`
+(or `.claude/skills/` in the project).
+
 ## License
 
 [MIT](LICENSE)

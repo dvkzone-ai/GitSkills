@@ -80,6 +80,41 @@ the frontmatter check stricter.
 
 Reports and backups are saved in `~/.claude/checkup-reports/<date>/`.
 
+## Uninstall
+
+Remove a skill installed globally:
+
+```bash
+npx skills remove claude-code-checkup -g
+```
+
+For a skill installed in one project, run the same command from that project's folder, without
+`-g`. Use `npx skills ls -g` (or `npx skills ls` in the project) to see what is installed.
+
+On Windows the command may end with `Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)`
+after "Done!". It is a known Node.js glitch on exit: the removal has already completed.
+
+With a project install, the installer leaves behind empty `.agents/skills/` and
+`.claude/skills/` folders and a `skills-lock.json` file. Delete them if you no longer need them.
+
+If you installed the skill by copying its folder, delete that folder from `~/.claude/skills/`
+(or `.claude/skills/` in the project).
+
+**What the checkup itself leaves behind.** Removing the skill does not touch:
+
+- **Your reports and backups** in `~/.claude/checkup-reports/`. Delete that folder to remove
+  them.
+- **The fixes you applied**, such as `skillOverrides`, disabled plugins or removed permission
+  rules. They are ordinary Claude Code settings and stay in place. To undo them, run the restore
+  **before** uninstalling, once for each report folder whose fixes you applied:
+
+  ```bash
+  python ~/.claude/skills/claude-code-checkup/scripts/apply.py --restore ~/.claude/checkup-reports/<date>/backup
+  ```
+
+  Or change them by hand: `/skills` for skill states, `/plugin` for plugins, `/permissions` for
+  permission rules.
+
 ## How it changes things
 
 - Skills are turned off or reduced only through the official
