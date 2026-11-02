@@ -1,5 +1,7 @@
 # claude-code-checkup
 
+By [PortalPrompts](https://portalprompts.com).
+
 A health check and cleanup skill for [Claude Code](https://code.claude.com). It scans your setup,
 builds a one-page HTML dashboard and applies only the fixes you approve, after making a backup
 first.
